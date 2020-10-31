@@ -57,19 +57,37 @@ namespace MSO4
 		//Added active player as an argument to reduce required logic in this class
 		public int GetMove(List<int> allowedMoves, int activePlayer)
 		{
+			ConsoleColor color;
+
+			if (activePlayer == 1)
+			{
+				color = ConsoleColor.Red;
+			}
+			else
+			{
+				color = ConsoleColor.Green;
+			}
+
 			string allowedMovesString = "";
 			foreach (int move in allowedMoves)
 			{
 				allowedMovesString = allowedMovesString + move.ToString() + ", ";
 			}
 			Console.WriteLine("Player " + activePlayer.ToString() + " please select a hole to start your next move from the allowed list:");
+
+			Console.ForegroundColor = color;
 			Console.WriteLine(allowedMovesString);
+			Console.ResetColor();
+
 
 			int input = GetNumberFromPlayer();
 			while (!allowedMoves.Contains(input))
 			{
 				Console.WriteLine("That is not an alowed move, Player " + activePlayer.ToString() + " please select a hole from the list:");
+				Console.ForegroundColor = color;
 				Console.WriteLine(allowedMovesString);
+				Console.ResetColor();
+
 				input = GetNumberFromPlayer();
 			}
 			return input;
@@ -88,22 +106,40 @@ namespace MSO4
 			}
 
 			string upper = padTo("", fieldWidth);
+			string lowerupper = padTo("0", fieldWidth);
 			string middle = padTo(bord.holes[0].stones.ToString(), fieldWidth);
+			string upperlower = padTo("", fieldWidth);
 			string lower = padTo("", fieldWidth);
 
-			for (int i = 1; i < (bord.holes.Length / 2) - 1; i++)
+			for (int i = 1; i < (bord.holes.Length / 2); i++)
 			{
-				upper = upper + '|' + padTo(bord.holes[i].stones.ToString(), fieldWidth) ;
-				middle = middle + new string('-', fieldWidth + 1);
-				lower = upper + '|' + padTo(bord.holes[bord.holes.Length - i].stones.ToString(), fieldWidth) ;
+				int tophole = i;
+				upper = upper + '|' + padTo(bord.holes[tophole].stones.ToString(), fieldWidth) ;
+				lowerupper = lowerupper + '|' + padTo(tophole.ToString(), fieldWidth);
+				middle = middle + '|' + new string('-', fieldWidth);
+				int bottomhole = bord.holes.Length - i;
+				lower = lower + '|' + padTo(bord.holes[bottomhole].stones.ToString(), fieldWidth) ;
+				upperlower = upperlower + '|' + padTo(bottomhole.ToString(), fieldWidth);
 			}
 
-			upper = upper + padTo("", fieldWidth);
-			middle = middle + padTo(bord.holes[bord.holes.Length/2].stones.ToString(), fieldWidth);
-			lower = lower + padTo("", fieldWidth);
+			upper = upper + '|' + padTo("", fieldWidth);
+			lowerupper = lowerupper + '|' ;
+			middle = middle + '|' + padTo(bord.holes[bord.holes.Length/2].stones.ToString(), fieldWidth);
+			upperlower = upperlower + '|' + (bord.holes.Length / 2).ToString();
+			lower = lower + '|' + padTo("", fieldWidth);
 
 			Console.WriteLine(upper);
+
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.WriteLine(lowerupper);
+			Console.ResetColor();
+
 			Console.WriteLine(middle);
+
+			Console.ForegroundColor = ConsoleColor.Green;
+			Console.WriteLine(upperlower);
+			Console.ResetColor();
+
 			Console.WriteLine(lower);
 		}
 

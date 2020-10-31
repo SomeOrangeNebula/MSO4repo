@@ -30,6 +30,8 @@ namespace MSO4
 		{
 			while (gamestate == GameState.Playing)
 			{
+				uic.DrawBoard(board);
+
 				List<int> allowedMoves = rules.AllowedMoves(board, activePlayer);
 				if (allowedMoves.Count == 0)
 				{
@@ -50,7 +52,6 @@ namespace MSO4
 					}
 				}
 
-				uic.DrawBoard(board);
 
 			}
 			uic.EndOfGameMessage(rules.CalculateWinners(board));
@@ -65,6 +66,7 @@ namespace MSO4
 			int holes = uic.UserInputNrHoles();
 			int stones = uic.UserInputNrStones();
 			ResetGame(ruleType, holes, stones);
+			gamestate = GameState.Playing;
 			Update();
 		}
 
