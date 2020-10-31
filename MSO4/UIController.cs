@@ -18,7 +18,7 @@ namespace MSO4
 		{
 			LineRow();
 			Console.WriteLine("Welcome to our amazing game! \n " +
-				"Made by Lumen de Vries and Mischa Korthagen as an excersise for the University of Utrecht \n " +
+				"Made by Lumen de Vries and Mischa Korthagen as an excersise for a course at the University of Utrecht \n " +
 				"To close the programme at any time, you can type '(q)uit' and press enter \n " +
 				"To see this screen again at any time you can type '(h)elp' and press enter");
 		}
@@ -45,9 +45,9 @@ namespace MSO4
 				Console.WriteLine("You selected: " + line);
 				return line;
 			}
-			else if (int.TryParse(line, out holder) && (holder - 1) >= 0 && holder < posibilities.Count)
+			else if (int.TryParse(line, out holder) && (holder - 1) >= 0 && (holder-1) < posibilities.Count)
 			{
-				string selected = posibilities[int.Parse(line)];
+				string selected = posibilities[int.Parse(line)-1];
 				Console.WriteLine("You selected: " + selected);
 				return selected;
 			}

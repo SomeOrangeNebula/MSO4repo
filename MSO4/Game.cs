@@ -84,6 +84,8 @@ namespace MSO4
 			Boardfactory b = new Boardfactory();
 			RulesFactory r = new RulesFactory();
 
+			activePlayer = 1;
+
 			board = b.MakeBoard(ruleType, holes, stones);
 			rules = r.GetRules(ruleType);
 			gamestate = GameState.Playing;
