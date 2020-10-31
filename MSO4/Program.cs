@@ -5,7 +5,6 @@ namespace MSO4
 		static void Main(string[] args)
 		{
 			Game g = new Game();
-
 		}
 	}
 }
