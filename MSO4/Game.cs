@@ -33,7 +33,9 @@ namespace MSO4
 		{
 			while (gamestate == GameState.Playing)
 			{
+				Console.WriteLine(new string('-', 80));
 				uic.DrawBoard(board);
+				Console.WriteLine();
 
 				List<int> allowedMoves = rules.AllowedMoves(board, activePlayer);
 				if (allowedMoves.Count == 0)
