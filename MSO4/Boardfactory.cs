@@ -37,7 +37,7 @@ namespace MSO4
         private Board MakeMankala(Hole[] holes, int stones)
         {
             holes[0] = new SpecialHole(stones, 1);
-            holes[1] = new SpecialHole(stones, 2);
+            holes[holes.Length/2] = new SpecialHole(stones, 2);
             return new Board(holes);
         }
     }
