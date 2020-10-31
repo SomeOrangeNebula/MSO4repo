@@ -54,9 +54,62 @@ namespace MSO4
 			}
 		}
 
+		//Added active player as an argument to reduce required logic in this class
+		public int GetMove(List<int> allowedMoves, int activePlayer)
+		{
+			string allowedMovesString = "";
+			foreach (int move in allowedMoves)
+			{
+				allowedMovesString = allowedMovesString + move.ToString() + ", ";
+			}
+			Console.WriteLine("Player " + activePlayer.ToString() + " please select a hole to start your next move from the allowed list:");
+			Console.WriteLine(allowedMovesString);
+
+			int input = GetNumberFromPlayer();
+			while (!allowedMoves.Contains(input))
+			{
+				Console.WriteLine("That is not an alowed move, Player " + activePlayer.ToString() + " please select a hole from the list:");
+				Console.WriteLine(allowedMovesString);
+				input = GetNumberFromPlayer();
+			}
+			return input;
+		}
+
 		public void DrawBoard(Board bord)
 		{
-			//TODO draw board
+			int fieldWidth = 1;
+			foreach (Hole h in bord.holes)
+			{
+				int lengt = h.stones.ToString().Length;
+				if ( lengt > fieldWidth)
+				{
+					fieldWidth = lengt;
+				}
+			}
+
+			string upper = padTo("", fieldWidth);
+			string middle = padTo(bord.holes[0].stones.ToString(), fieldWidth);
+			string lower = padTo("", fieldWidth);
+
+			for (int i = 1; i < (bord.holes.Length / 2) - 1; i++)
+			{
+				upper = upper + '|' + padTo(bord.holes[i].stones.ToString(), fieldWidth) ;
+				middle = middle + new string('-', fieldWidth + 1);
+				lower = upper + '|' + padTo(bord.holes[bord.holes.Length - i].stones.ToString(), fieldWidth) + ;
+			}
+
+			upper = upper + padTo("", fieldWidth);
+			middle = middle + padTo(bord.holes[bord.holes.Length/2].stones.ToString(), fieldWidth);
+			lower = lower + padTo("", fieldWidth);
+
+			Console.WriteLine(upper);
+			Console.WriteLine(middle);
+			Console.WriteLine(lower);
+		}
+
+		private string padTo(string msg, int lengt)
+		{
+			return msg + new string(' ', lengt - msg.Length);
 		}
 
 		//We forgot to add these two functions in our design, this could have been patched by concatenating strings in PickRules, but we thought simply adding single functions is cleaner:
