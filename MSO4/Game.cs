@@ -43,8 +43,11 @@ namespace MSO4
 
 		private void ResetGame(string ruleType, int holes, int stones)
 		{
-			//TODO: create rules here using string assigned above
-			//TODO create board here using nr of holes and stones assigned above
+			Boardfactory b = new Boardfactory();
+			RulesFactory r = new RulesFactory();
+
+			board = b.MakeBoard(ruleType, holes, stones);
+			rules = r.GetRules(ruleType);
 		}
 	}
 }
