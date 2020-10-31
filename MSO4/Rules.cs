@@ -31,7 +31,7 @@ namespace MSO4
                 }
                 else
                 {
-                    hole = holes.Length - 2;
+                    hole = holes.Length - 1;
                     holes[hole].stones++;
                 }
             }
