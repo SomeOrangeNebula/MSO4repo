@@ -12,12 +12,14 @@ namespace MSO4
 			GreetPlayer();
 		}
 
+
+		//An extra function we added to greet the player and serve als a help function:
 		void GreetPlayer()
 		{
 			Console.WriteLine("Welcome to our amazing game! \n " +
 				"Made by Lumen de Vries and Mischa Korthagen as an excersise for the University of Utrecht \n " +
-				"To close the programme at any time, you can type 'q' and press enter \n " +
-				"To see this screen again at any time you can type 'help' and press enter");
+				"To close the programme at any time, you can type '(q)uit' and press enter \n " +
+				"To see this screen again at any time you can type '(h)elp' and press enter");
 		}
 
 		
@@ -176,6 +178,30 @@ namespace MSO4
 			Console.WriteLine("Thank you for playing!");
 		}
 
+		//Function to let players restart the game:
+
+		public bool StartWithSameSettings()
+		{
+			Console.WriteLine("The game is over. /n" +
+				"If you would like to restart the game with the same settins: type r(estart) \n" +
+				"If you would like to select different settings: type s(ettings) \n" +
+				"if you would like to quit the programe: type q(uit)");
+			string line = GetInput();
+			if (line == "r" || line == "restart" || line == "(r)estart")
+			{
+				return true;
+			}
+			else if (line == "s" || line == "settings" || line == "(s)ettings")
+			{
+				return false;
+			}
+			else
+			{
+				Console.WriteLine("We do not understand your input, please select one of the follwing options:");
+				return StartWithSameSettings();
+			}
+		}
+
 		//Private help functions to reduce code duplication:
 
 		private int AskPlayerForNumber(string question)
@@ -187,11 +213,11 @@ namespace MSO4
 		private string GetInput()
 		{
 			string line = Console.ReadLine();
-			if (line == "q")
+			if (line == "q" || line == "quit" || line == "(q)uit")
 			{
 				Environment.Exit(1);
 			}
-			else if (line == "help")
+			else if (line == "help" || line == "h" || line == "(h)elp")
 			{
 				GreetPlayer();
 			}
