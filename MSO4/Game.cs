@@ -8,6 +8,10 @@ namespace MSO4
 		UIController uic;
 		Rules rules;
 		Board board;
+		int activePlayer = 1;
+
+
+		//We added this enum for internal logic:
 		GameState gamestate;
 
 		public enum GameState
@@ -26,8 +30,31 @@ namespace MSO4
 		{
 			while (gamestate == GameState.Playing)
 			{
+				List<int> allowedMoves = rules.AllowedMoves(board, activePlayer);
+				if (allowedMoves.Count == 0)
+				{
+					gamestate = GameState.GameOver;
+					break;
+				}
+				board = rules.Move(uic.GetMove(allowedMoves, activePlayer), board, activePlayer);
+
+				if (rules.PlayerSwapped)
+				{
+					if (activePlayer == 1)
+					{
+						activePlayer = 2;
+					}
+					else
+					{
+						activePlayer = 1;
+					}
+				}
+
+				uic.DrawBoard(board);
+
 			}
-			//Show winner to player, give opportunity to switch rules or restart with same rules
+			uic.EndOfGameMessage(rules.CalculateWinners(board));
+			//give opportunity to switch rules or restart with same rules
 		}
 
 		private void SetUpGame()
