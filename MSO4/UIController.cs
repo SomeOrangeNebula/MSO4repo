@@ -71,6 +71,22 @@ namespace MSO4
 			return AskPlayerForNumber("What number of stones would you like each hole to have at the start of the game?");
 		}
 
+		//We also forgot to add a function in our design for this simple end of game function:
+
+		public void EndOfGameMessage(int VictoryPlayer)
+		{
+			Console.WriteLine("The game is over!");
+			if (VictoryPlayer == 0)
+			{
+				Console.WriteLine("The game is a tie!");
+			}
+			else
+			{
+				Console.WriteLine("Player " + VictoryPlayer.ToString() + " won! Congratulations!");
+			}
+			Console.WriteLine("Thank you for playing!");
+		}
+
 		//Private help functions to reduce code duplication:
 
 		private int AskPlayerForNumber(string question)
