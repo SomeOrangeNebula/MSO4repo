@@ -24,6 +24,7 @@ namespace MSO4
 
 		public string PickRules(List<String> posibilities)
 		{
+			int holder = -1;
 			if (posibilities.Count == 0)
 			{
 				throw new Exception("Can't pick an item from an empty list");
@@ -32,7 +33,7 @@ namespace MSO4
 			Console.WriteLine("Please select a ruleset from the list below, by either typing the name of the ruleset or it's number in the list");
 			for (int i = 1; i <= posibilities.Count; i++)
 			{
-				Console.WriteLine(i.ToString() + posibilities[i - 1]);
+				Console.WriteLine(i.ToString() + ". " + posibilities[i - 1]);
 			}
 			string line = GetInput();
 			if (posibilities.Contains(line))
@@ -40,7 +41,7 @@ namespace MSO4
 				Console.WriteLine("You selected: " + line);
 				return line;
 			}
-			else if ((int.Parse(line) - 1) >= 0 && int.Parse(line) < posibilities.Count)
+			else if (int.TryParse(line, out holder) && (holder - 1) >= 0 && holder < posibilities.Count)
 			{
 				string selected = posibilities[int.Parse(line)];
 				Console.WriteLine("You selected: " + selected);
@@ -53,6 +54,13 @@ namespace MSO4
 			}
 		}
 
+		public void DrawBoard(Board bord)
+		{
+			//TODO draw board
+		}
+
+		//We forgot to add these two functions in our design, this could have been patched by concatenating strings in PickRules, but we thought simply adding single functions is cleaner:
+
 		public int UserInputNrHoles()
 		{
 			return AskPlayerForNumber("What number of holes would you like (each player) to have?");
@@ -61,10 +69,6 @@ namespace MSO4
 		public int UserInputNrStones()
 		{
 			return AskPlayerForNumber("What number of stones would you like each hole to have at the start of the game?");
-		}
-
-		public void DrawBoard(Board bord)
-		{
 		}
 
 		//Private help functions to reduce code duplication:
