@@ -10,6 +10,9 @@ namespace MSO4
 		Board board;
 		int activePlayer = 1;
 
+		String ruleType;
+		int holes;
+		int stones;
 
 		//We added this enum for internal logic:
 		GameState gamestate;
@@ -55,16 +58,23 @@ namespace MSO4
 
 			}
 			uic.EndOfGameMessage(rules.CalculateWinners(board));
-			//give opportunity to switch rules or restart with same rules
+			if (uic.StartWithSameSettings())
+			{
+				ResetGame(ruleType, holes, stones);
+			}
+			else
+			{
+				SetUpGame();
+			}
 		}
 
 		private void SetUpGame()
 		{
 			gamestate = GameState.SetupGame;
 			uic = new UIController();
-			String ruleType = uic.PickRules(RulesDataBase.GetRuleNames());
-			int holes = uic.UserInputNrHoles();
-			int stones = uic.UserInputNrStones();
+			ruleType = uic.PickRules(RulesDataBase.GetRuleNames());
+			holes = uic.UserInputNrHoles();
+			stones = uic.UserInputNrStones();
 			ResetGame(ruleType, holes, stones);
 			gamestate = GameState.Playing;
 			Update();
