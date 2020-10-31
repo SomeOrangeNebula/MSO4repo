@@ -140,7 +140,7 @@ namespace MSO4
             {
                 if (holes[hole].stones > 1)
                 {
-                    return Move(hole, new Board(holes), player);
+                    return new Board(holes);
                 }
                 else if (holes[hole].stones == 1 && holes[holes.Length-hole].stones == 0)
                 {
