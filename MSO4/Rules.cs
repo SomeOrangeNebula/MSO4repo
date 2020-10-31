@@ -27,12 +27,18 @@ namespace MSO4
                 if(hole > 1)
                 {
                     hole--;
-                    holes[hole].stones++;
+                    if (holes[hole].GetType() != typeof(SpecialHole))
+                    { 
+                        holes[hole].stones++; 
+                    }
                 }
                 else
                 {
                     hole = holes.Length - 1;
-                    holes[hole].stones++;
+                    if (holes[hole].GetType() != typeof(SpecialHole)) 
+                    { 
+                        holes[hole].stones++; 
+                    }
                 }
             }
             if (holes[hole].stones == 2 || holes[hole].stones == 3)
