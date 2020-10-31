@@ -33,7 +33,6 @@ namespace MSO4
 		{
 			while (gamestate == GameState.Playing)
 			{
-				Console.WriteLine(new string('-', 80));
 				uic.DrawBoard(board);
 				Console.WriteLine();
 
@@ -78,8 +77,6 @@ namespace MSO4
 			holes = uic.UserInputNrHoles();
 			stones = uic.UserInputNrStones();
 			ResetGame(ruleType, holes, stones);
-			gamestate = GameState.Playing;
-			Update();
 		}
 
 		private void ResetGame(string ruleType, int holes, int stones)
@@ -89,6 +86,8 @@ namespace MSO4
 
 			board = b.MakeBoard(ruleType, holes, stones);
 			rules = r.GetRules(ruleType);
+			gamestate = GameState.Playing;
+			Update();
 		}
 	}
 }

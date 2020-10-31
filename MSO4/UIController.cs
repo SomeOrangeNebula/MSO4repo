@@ -16,6 +16,7 @@ namespace MSO4
 		//An extra function we added to greet the player and serve als a help function:
 		void GreetPlayer()
 		{
+			LineRow();
 			Console.WriteLine("Welcome to our amazing game! \n " +
 				"Made by Lumen de Vries and Mischa Korthagen as an excersise for the University of Utrecht \n " +
 				"To close the programme at any time, you can type '(q)uit' and press enter \n " +
@@ -26,6 +27,7 @@ namespace MSO4
 
 		public string PickRules(List<String> posibilities)
 		{
+			LineRow();
 			int holder = -1;
 			if (posibilities.Count == 0)
 			{
@@ -97,6 +99,7 @@ namespace MSO4
 
 		public void DrawBoard(Board bord)
 		{
+			LineRow();
 			int fieldWidth = 1;
 			foreach (Hole h in bord.holes)
 			{
@@ -105,6 +108,10 @@ namespace MSO4
 				{
 					fieldWidth = lengt;
 				}
+			}
+			if (bord.holes.Length.ToString().Length > fieldWidth)
+			{
+				fieldWidth = bord.holes.Length.ToString().Length;
 			}
 
 			string upper = padTo("", fieldWidth);
@@ -145,9 +152,13 @@ namespace MSO4
 			Console.WriteLine(lower);
 		}
 
+		private void LineRow()
+		{
+			Console.WriteLine(new string('-', 80));
+		}
 		private string padTo(string msg, int lengt)
 		{
-			return msg + new string(' ', lengt - msg.Length);
+			return msg + new string(' ', Math.Max(lengt - msg.Length, 0));
 		}
 
 		//We forgot to add these two functions in our design, this could have been patched by concatenating strings in PickRules, but we thought simply adding single functions is cleaner:
@@ -166,6 +177,7 @@ namespace MSO4
 
 		public void EndOfGameMessage(int VictoryPlayer)
 		{
+			LineRow();
 			Console.WriteLine("The game is over!");
 			if (VictoryPlayer == 0)
 			{
@@ -182,7 +194,8 @@ namespace MSO4
 
 		public bool StartWithSameSettings()
 		{
-			Console.WriteLine("The game is over. /n" +
+			LineRow();
+			Console.WriteLine("The game is over. \n" +
 				"If you would like to restart the game with the same settins: type r(estart) \n" +
 				"If you would like to select different settings: type s(ettings) \n" +
 				"if you would like to quit the programe: type q(uit)");
