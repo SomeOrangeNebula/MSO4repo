@@ -95,7 +95,7 @@ namespace MSO4
 			{
 				upper = upper + '|' + padTo(bord.holes[i].stones.ToString(), fieldWidth) ;
 				middle = middle + new string('-', fieldWidth + 1);
-				lower = upper + '|' + padTo(bord.holes[bord.holes.Length - i].stones.ToString(), fieldWidth) + ;
+				lower = upper + '|' + padTo(bord.holes[bord.holes.Length - i].stones.ToString(), fieldWidth) ;
 			}
 
 			upper = upper + padTo("", fieldWidth);
